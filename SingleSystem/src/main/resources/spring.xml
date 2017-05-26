@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context.xsd">
+						
+	<context:property-placeholder location="classpath:conf/config.properties" />
+	<context:component-scan base-package="com.chujiu.manager" >
+		<context:include-filter type="regex" expression="com.chujiu.manager.*.*service"/>
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+	<bean id="springContextUtils" class="com.chujiu.core.util.SpringContextUtils" />
+	
+	<!--JCaptcha Service  -->
+	<!--<bean id="captchaService" class="com.octo.captcha.service.image.DefaultManageableImageCaptchaService">
+		<constructor-arg type="com.octo.captcha.service.captchastore.CaptchaStore" index="0">
+			<ref bean="fastHashMapCaptchaStore"/>    
+		</constructor-arg>
+		&lt;!&ndash; 若不配置此构造方法参数，则会默认使用名称为CaptchaEngine 图片生成引擎 &ndash;&gt;
+		<constructor-arg type="com.octo.captcha.engine.CaptchaEngine" index="1">
+			<ref bean="captchaEngine"/>
+		</constructor-arg>
+		<constructor-arg index="2">
+			<value>180</value>
+		</constructor-arg>
+		<constructor-arg index="3">
+		<value>100000</value>
+		</constructor-arg>
+		<constructor-arg index="4">
+		<value>75000</value>
+		</constructor-arg>
+	</bean>-->
+	
+	<!--<bean id="fastHashMapCaptchaStore" class="com.octo.captcha.service.captchastore.FastHashMapCaptchaStore"/>-->
+	<!-- 使用自定义的图片生成引擎 -->
+	<!--<bean id="captchaEngine" class="com.chujiu.security.captcha.engine.NumberEngine"/>-->
+</beans>
