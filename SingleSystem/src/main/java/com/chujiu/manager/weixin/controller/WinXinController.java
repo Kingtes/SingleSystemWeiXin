@@ -71,7 +71,16 @@ public class WinXinController {
             System.out.println(str);
         }*/
         Map<String, String> msgMap = MessageKit.reqMsg2Map(req);
+        System.out.println("$############微信客户端发送的信息###############$");
         System.out.println(msgMap);
+        System.out.println("$############微信客户端发送的信息###############$");
+
+        String respCon = MessageKit.handlerMsg(msgMap);
+        System.out.println("回复xml："+respCon);
+        resp.setContentType("application/xml;chartset=UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        resp.getWriter().write(respCon);
+
     }
 
     /**

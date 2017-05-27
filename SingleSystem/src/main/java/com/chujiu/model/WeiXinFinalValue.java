@@ -8,4 +8,12 @@ public class WeiXinFinalValue {
     public static String APPID = "wx253a04de73e6b730";
     public static String APPSECRET = "b5c4976b922f976902b27bc6e77dd6d2";
     public static String MENU_ADD = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
+
+    public static String MSG_TEXT_TYPE = "text";
+    public static String MSG_IMAGE_TYPE = "image";
+    public static String MSG_VOICE_TYPE = "voice";
+    public static String MSG_VIDEO_TYPE = "video";
+    public static String MSG_SHORTVIDEO_TYPE = "shortvideo";
+    public static String MSG_LOCATION_TYPE = "location";
+    public static String MSG_EVENT_TYPE = "event";
 }
