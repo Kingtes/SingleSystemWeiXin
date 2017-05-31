@@ -2,6 +2,7 @@ package com.chujiu.manager.httpclient;
 
 import com.alibaba.fastjson.JSON;
 import com.chujiu.json.AccessToken;
+import com.chujiu.json.TemplateMsg;
 import com.chujiu.manager.quartz.controller.RefreshAccessTokenTask;
 import com.chujiu.model.WeiXinContext;
 import com.chujiu.model.WeiXinFinalValue;
@@ -15,6 +16,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -26,6 +28,15 @@ import java.util.Map;
  * Created by tianci on 2017/5/25.
  */
 public class HttpClient {
+
+    private static String accessToken;
+
+    @Before
+    public void initAccessToken() {
+        RefreshAccessTokenTask rat = new RefreshAccessTokenTask();
+        rat.refreshToken();
+        this.accessToken = rat.getAccessToken();
+    }
 
     /**
      * 微信获取access_token测试
@@ -88,10 +99,9 @@ public class HttpClient {
             CloseableHttpClient client = HttpClients.createDefault();
             String url = WeiXinFinalValue.MENU_ADD;
 
-            RefreshAccessTokenTask rat = new RefreshAccessTokenTask();
-            rat.refreshToken();
 
-            url = url.replaceAll("ACCESS_TOKEN", rat.getAccessToken());
+
+            url = url.replaceAll("ACCESS_TOKEN", this.accessToken);
             HttpPost post = new HttpPost(url);
             post.addHeader("Content-Type", "application/json");
             StringEntity entity = new StringEntity(jsonStr, ContentType.create("application/json", "utf-8"));
@@ -104,5 +114,15 @@ public class HttpClient {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public static String postTemplateMsg(TemplateMsg tm) {
+        CloseableHttpResponse resp = null;
+        CloseableHttpClient client = null;
+
+        String url = WeiXinFinalValue.SEND_TEMPLATE_MSG;
+        url.replace("ACCESS_TOKEN",this.accessToken);
+        return null;
     }
 }

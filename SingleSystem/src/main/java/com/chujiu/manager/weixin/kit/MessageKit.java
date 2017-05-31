@@ -1,6 +1,9 @@
 package com.chujiu.manager.weixin.kit;
 
+import com.chujiu.json.TemplateMsg;
 import com.chujiu.model.WeiXinFinalValue;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
@@ -78,6 +81,12 @@ public class MessageKit {
         return sb.toString();
     }
 
+    /**
+     * 根据不同消息类型处理消息
+     * @param msgMap
+     * @return
+     * @throws IOException
+     */
     public static String handlerMsg(Map<String, String> msgMap) throws IOException {
         String msgType = msgMap.get("MsgType");
         if (WeiXinFinalValue.MSG_TEXT_TYPE.equals(msgType)) {
@@ -88,6 +97,12 @@ public class MessageKit {
         return null;
     }
 
+    /**
+     * 文本类型消息处理
+     * @param msgMap
+     * @return
+     * @throws IOException
+     */
     private static String textTypeHandler(Map<String, String> msgMap) throws IOException {
         Map<String, String> map = new HashMap<>();
         map.put("ToUserName", msgMap.get("FromUserName"));
@@ -103,6 +118,12 @@ public class MessageKit {
         return map2xml(map);
     }
 
+    /**
+     * 事件类型处理
+     * @param msgMap
+     * @return
+     * @throws IOException
+     */
     private static String eventTypeHandler(Map<String, String> msgMap) throws IOException {
         String eventKey = msgMap.get("EventKey");
         Map<String, String> map = new HashMap<>();
@@ -118,6 +139,12 @@ public class MessageKit {
         return map2xml(map);
     }
 
+    /**
+     * map转xml串
+     * @param map
+     * @return
+     * @throws IOException
+     */
     private static String map2xml(Map<String, String> map) throws IOException {
         Document d = DocumentHelper.createDocument();
         Element root = d.addElement("xml");
@@ -132,6 +159,7 @@ public class MessageKit {
         xw.write(d);
         return sw.toString();
     }
+
 
 
 }
