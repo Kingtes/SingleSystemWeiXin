@@ -16,4 +16,9 @@ public class WeiXinFinalValue {
     public static String MSG_SHORTVIDEO_TYPE = "shortvideo";
     public static String MSG_LOCATION_TYPE = "location";
     public static String MSG_EVENT_TYPE = "event";
+
+    /**
+     * 模板消息post请求url
+     */
+    public static String SEND_TEMPLATE_MSG = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=ACCESS_TOKEN";
 }

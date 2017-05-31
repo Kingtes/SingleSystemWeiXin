@@ -4,6 +4,7 @@ import com.chujiu.model.WeiXinFinalValue;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.dom4j.io.XMLWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
@@ -25,6 +26,14 @@ public class MessageKit {
         replyMsgs.put("fuck", "fuck，亲");
         replyMsgs.put("牛掰", "你好，牛掰");
 
+        replyMsgs.put("A0001",
+                "问君能有几多愁，五人四坑赶快投！\n" +
+                "队友坑我千百遍，我待队友如初恋。\n" +
+                "走位不对，补兵不会，团战撤退。\n" +
+                "文能挂机喷队友，武能越塔送人头。\n" +
+                "静则百年不见人，动则千里送超神。\n" +
+                "英勇闪现送一血，卖起队友不回头。"
+        );
     }
 
     /**
@@ -73,6 +82,8 @@ public class MessageKit {
         String msgType = msgMap.get("MsgType");
         if (WeiXinFinalValue.MSG_TEXT_TYPE.equals(msgType)) {
             return textTypeHandler(msgMap);
+        } else if (WeiXinFinalValue.MSG_EVENT_TYPE.equals(msgType)) {
+            return eventTypeHandler(msgMap);
         }
         return null;
     }
@@ -92,6 +103,21 @@ public class MessageKit {
         return map2xml(map);
     }
 
+    private static String eventTypeHandler(Map<String, String> msgMap) throws IOException {
+        String eventKey = msgMap.get("EventKey");
+        Map<String, String> map = new HashMap<>();
+        map.put("ToUserName", msgMap.get("FromUserName"));
+        map.put("FromUserName", msgMap.get("ToUserName"));
+        map.put("CreateTime", new Date().getTime() + "");
+        map.put("MsgType", WeiXinFinalValue.MSG_TEXT_TYPE);
+        String replyContent = "您说什么呢，我听不懂啊！";
+        if (replyMsgs.containsKey(eventKey)) {
+            replyContent = replyMsgs.get(eventKey);
+        }
+        map.put("Content", replyContent);
+        return map2xml(map);
+    }
+
     private static String map2xml(Map<String, String> map) throws IOException {
         Document d = DocumentHelper.createDocument();
         Element root = d.addElement("xml");
@@ -101,7 +127,11 @@ public class MessageKit {
             root.addElement(key).addText(map.get(key));
         }
         StringWriter sw = new StringWriter();
-        d.write(sw);
+        XMLWriter xw = new XMLWriter(sw);
+        xw.setEscapeText(false);
+        xw.write(d);
         return sw.toString();
     }
+
+
 }

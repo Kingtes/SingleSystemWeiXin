@@ -66,7 +66,7 @@ public class HttpClient {
             wm2.setName("测试资源");
             List<WeiXinMenu> wms_sub = new ArrayList<>();
             WeiXinMenu wmSub = new WeiXinMenu();
-            wmSub.setName("事件测试");
+            wmSub.setName("诗词歌赋");
             wmSub.setType("click");
             wmSub.setKey("A0001");
             wms_sub.add(wmSub);
