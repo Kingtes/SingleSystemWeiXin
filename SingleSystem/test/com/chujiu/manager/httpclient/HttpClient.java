@@ -101,7 +101,7 @@ public class HttpClient {
 
 
 
-            url = url.replaceAll("ACCESS_TOKEN", this.accessToken);
+            url = url.replaceAll("ACCESS_TOKEN", accessToken);
             HttpPost post = new HttpPost(url);
             post.addHeader("Content-Type", "application/json");
             StringEntity entity = new StringEntity(jsonStr, ContentType.create("application/json", "utf-8"));
@@ -122,7 +122,7 @@ public class HttpClient {
         CloseableHttpClient client = null;
 
         String url = WeiXinFinalValue.SEND_TEMPLATE_MSG;
-        url.replace("ACCESS_TOKEN",this.accessToken);
+        url.replace("ACCESS_TOKEN",accessToken);
         return null;
     }
 }

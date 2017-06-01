@@ -1,6 +1,7 @@
 package com.chujiu.manager.user.service;
 
 import com.chujiu.manager.user.model.WGroup;
+import com.chujiu.model.WeiXinFinalValue;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
 public class GroupService implements IGroupService {
     @Override
     public void add(WGroup group) {
-
+//        String url = WeiXinFinalValue.
     }
 
     @Override

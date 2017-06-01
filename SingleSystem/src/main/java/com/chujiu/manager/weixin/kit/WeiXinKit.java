@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.chujiu.model.WeiXinContext;
 import com.chujiu.model.WeiXinFinalValue;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
@@ -40,6 +41,50 @@ public class WeiXinKit {
             if (statusCode >= 200 && statusCode < 300) {
                 String str = EntityUtils.toString(resp.getEntity());
                 System.out.println(str);
+                return str;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            if (client != null) {
+                try {
+                    client.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (resp != null) {
+                try {
+                    resp.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
+    }
+
+
+    /**
+     * 向微信发送get请求
+     * @param url
+     * @param data
+     * @param type
+     * @return
+     */
+    public static String get2wx(String url, String data, String type) {
+        CloseableHttpResponse resp = null;
+        CloseableHttpClient client = null;
+
+        try {
+            client = HttpClients.createDefault();
+            HttpGet get = new HttpGet(url);
+            get.addHeader("Content-Type", type);
+            resp = client.execute(get);
+            int statusCode = resp.getStatusLine().getStatusCode();
+            if (statusCode >= 200 && statusCode < 300) {
+                String str = EntityUtils.toString(resp.getEntity(),"UTF-8");
+//                System.out.println(str);
                 return str;
             }
         } catch (Exception e) {
