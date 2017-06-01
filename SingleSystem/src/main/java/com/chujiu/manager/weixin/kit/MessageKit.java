@@ -1,20 +1,27 @@
 package com.chujiu.manager.weixin.kit;
 
-import com.chujiu.json.TemplateMsg;
-import com.chujiu.model.WeiXinFinalValue;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.dom4j.Document;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
-import org.dom4j.io.XMLWriter;
+        import com.alibaba.fastjson.JSON;
+        import com.chujiu.json.TemplateMsg;
+        import com.chujiu.model.WeiXinContext;
+        import com.chujiu.model.WeiXinFinalValue;
+        import org.apache.http.client.methods.CloseableHttpResponse;
+        import org.apache.http.client.methods.HttpPost;
+        import org.apache.http.entity.ContentType;
+        import org.apache.http.entity.StringEntity;
+        import org.apache.http.impl.client.CloseableHttpClient;
+        import org.apache.http.impl.client.HttpClients;
+        import org.apache.http.util.EntityUtils;
+        import org.dom4j.Document;
+        import org.dom4j.DocumentHelper;
+        import org.dom4j.Element;
+        import org.dom4j.io.XMLWriter;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.StringWriter;
-import java.util.*;
+        import javax.servlet.http.HttpServletRequest;
+        import java.io.BufferedReader;
+        import java.io.IOException;
+        import java.io.InputStreamReader;
+        import java.io.StringWriter;
+        import java.util.*;
 
 /**
  * Created by tianci on 2017/5/26.
@@ -31,11 +38,11 @@ public class MessageKit {
 
         replyMsgs.put("A0001",
                 "问君能有几多愁，五人四坑赶快投！\n" +
-                "队友坑我千百遍，我待队友如初恋。\n" +
-                "走位不对，补兵不会，团战撤退。\n" +
-                "文能挂机喷队友，武能越塔送人头。\n" +
-                "静则百年不见人，动则千里送超神。\n" +
-                "英勇闪现送一血，卖起队友不回头。"
+                        "队友坑我千百遍，我待队友如初恋。\n" +
+                        "走位不对，补兵不会，团战撤退。\n" +
+                        "文能挂机喷队友，武能越塔送人头。\n" +
+                        "静则百年不见人，动则千里送超神。\n" +
+                        "英勇闪现送一血，卖起队友不回头。"
         );
     }
 
@@ -160,6 +167,11 @@ public class MessageKit {
         return sw.toString();
     }
 
-
+    public static String postTemplateMsg(TemplateMsg tm) {
+        String url = WeiXinFinalValue.SEND_TEMPLATE_MSG;
+        url = url.replace("ACCESS_TOKEN", WeiXinContext.getAccessToken());
+        String json = JSON.toJSONString(tm);
+        return WeiXinKit.post2wx(url, json, "application/json");
+    }
 
 }
