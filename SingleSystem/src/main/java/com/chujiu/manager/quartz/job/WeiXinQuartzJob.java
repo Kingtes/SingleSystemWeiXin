@@ -1,5 +1,6 @@
-package com.chujiu.manager.quartz.controller;
+package com.chujiu.manager.quartz.job;
 
+import com.chujiu.manager.quartz.task.RefreshAccessTokenTask;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**

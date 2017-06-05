@@ -52,5 +52,5 @@
     <!-- job的配置结束 -->
 
     <!-- 工作的bean -->
-    <bean id="myJob" class="com.chujiu.manager.quartz.controller.WeiXinQuartzJob" />
+    <bean id="myJob" class="com.chujiu.manager.quartz.job.WeiXinQuartzJob" />
 </beans>

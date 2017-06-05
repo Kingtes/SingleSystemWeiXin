@@ -1,4 +1,4 @@
-package com.chujiu.manager.quartz.controller;
+package com.chujiu.manager.quartz.task;
 
 import com.alibaba.fastjson.JSON;
 import com.chujiu.json.AccessToken;

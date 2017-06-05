@@ -13,6 +13,8 @@
 		<context:include-filter type="regex" expression="com.chujiu.manager.*.*service"/>
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
+	<context:component-scan base-package="com.chujiu.manager.quartz.*" />
+	<!--<context:component-scan base-package="com.chujiu.manager.system.init" />-->
 	<bean id="springContextUtils" class="com.chujiu.core.util.SpringContextUtils" />
 	
 	<!--JCaptcha Service  -->
