@@ -5,6 +5,7 @@ import com.chujiu.json.AccessToken;
 import com.chujiu.json.ErrorEntity;
 import com.chujiu.model.WeiXinContext;
 import com.chujiu.model.WeiXinFinalValue;
+import com.chujiu.model.WeiXinInitCon;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -29,8 +30,12 @@ public class RefreshAccessTokenTask {
         try {
             client = HttpClients.createDefault();
             String url = WeiXinFinalValue.ACCESS_TOKEN_URL;
-            url = url.replaceAll("APPID", WeiXinFinalValue.APPID);
-            url = url.replaceAll("APPSECRET", WeiXinFinalValue.APPSECRET);
+
+            //微信基本信息
+            WeiXinInitCon wxCon = WeiXinInitCon.getInstance();
+
+            url = url.replaceAll("APPID",wxCon.getAppId());
+            url = url.replaceAll("APPSECRET", wxCon.getAppSecurt());
             get = new HttpGet(url);
             resp = client.execute(get);
             int statusCode = resp.getStatusLine().getStatusCode();
